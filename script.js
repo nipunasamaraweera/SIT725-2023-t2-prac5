@@ -31,7 +31,7 @@ const formSubmitted = () => {
     formData.description = $('#description').val();
 
     console.log(formData);
-    postCat(formData);
+    postAnime(formData);
 };
 
 function validateForm() {
@@ -49,35 +49,37 @@ function validateForm() {
     }
 }
 
-function postAnime(anime){
+
+function postAnime(anime) {
     $.ajax({
-        url:'/api/anime',
-        type:'POST',
-        data:anime,
-        success: (result)=>{
+        url: '/api/anime',
+        type: 'POST',
+        data: anime,
+        success: (result) => {
             if (result.statusCode === 201) {
-                alert('anime post successful');
+                alert('anime posted');
             }
         }
     });
 }
 
-function getAllAnime(){
-    $.get('/api/anime', (response)=>{
-        // response's data is in array format, so we can use it
-        if (response.statusCode === 200) {
-            addCards(response.data);
+function getAllAnime() {
+    $.get('/api/anime', (result) => {
+        if (result.statusCode === 200) {
+            addCards(result.data);
         }
     });
 }
+
 const formCanceled = () => {
     $('.modal').modal('close');
 };
 
-$(document).ready(function(){
+$(document).ready(function () {
     $('.materialboxed').materialbox();
-    $('#formSubmit').click(()=>{
-        formSubmitted();
+
+    $('#formcancel').click(() => {
+        formCanceled();
     });
     $('.modal').modal();
     getAllAnime();
